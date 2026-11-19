@@ -10,7 +10,7 @@ public class PasswordResetService(IEmailProvider emailProvider, ITokenGenerator 
 
     public void SendResetEmail(string email)
     {
-        bool isRegistered = _userRepository.IsEmailRegistered(email);
+        bool isRegistered = IsEmailRegistered(email);
         if (isRegistered)
         {
             string subject = "Password Reset Requested";
