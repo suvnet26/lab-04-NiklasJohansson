@@ -6,12 +6,15 @@ public class PasswordResetServiceTests
     public void SendResetEmail_SendsTokenToCorrectEmail()
     {
         // Arrange
+        var fakeUserRepository = new FakeUserRepository();
         var fakeEmailProvider = new FakeEmailProvider();
         var fakeTokenGenerator = new FakeTokenGenerator();
-        var sut = new PasswordResetService(fakeEmailProvider, fakeTokenGenerator);
+        var sut = new PasswordResetService(fakeEmailProvider, fakeTokenGenerator, fakeUserRepository);
         var testEmail = "test@test.com";
+        fakeUserRepository.AddUser(testEmail, "123");
 
         // Act
+        fakeUserRepository.IsEmailRegistered(testEmail);
         sut.SendResetEmail(testEmail);
 
         // Assert
